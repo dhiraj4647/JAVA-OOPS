@@ -1,0 +1,46 @@
+class Sample {
+    static int x=10;
+    int y=90;
+     static void m1(){
+        System.out.println("I am first");
+    }
+     void m2(){
+        System.out.println("I am Second");m1();
+    }
+    //overriden method
+    void m3(){
+        System.out.println("I am superclass third method");
+    }
+} 
+
+public class Main extends Sample
+{
+    static void m1(){
+        Sample.m1();//to access the static method from superclass
+        System.out.println("I am new");
+    }
+    
+    //overriding method
+    void m3(){
+        System.out.println("I am subclass third method");
+        super.m3();//to access the overridden method use super keyword
+    }
+   
+	public static void main(String[] args) {
+		System.out.println("Hello World");
+		Sample a1=new Main();
+		Main a2=new Main();
+		a1.m1();a1.m2();
+		a2.m1();a2.m2();
+		
+		
+		a2.m3();
+	}
+}
+
+/*
+Rules:
+1)return type should be same as superclass.
+2)static modifier sould not add or removed.
+3)access modifier should be same or high from superclass.
+*/
