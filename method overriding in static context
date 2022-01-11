@@ -1,0 +1,62 @@
+package dhiraj;
+
+class Sample {
+    static void m1(){
+       System.out.println("I am first1");
+   }
+    static void m2(){
+       
+       System.out.println("I am Second3");
+       m1();
+   }
+} 
+class Test extends Sample{
+   static void m1(){
+       System.out.println("I am first776");
+   }
+   static void m3(){
+       System.out.println("I am first2");
+       m1();
+       Sample.m2();
+   }
+} 
+
+class Example extends Test{
+   static void m2(){
+       System.out.println("I am first776");
+       
+   }
+}
+
+public class Main extends Example
+{
+   static void m4(){
+       System.out.println("I am first776");
+       
+   }
+   static void m1(){
+       System.out.println("I am first7766666");
+       
+   }
+   static void m2(){
+       System.out.println("I am first776");
+       
+   }
+   
+  
+	public static void main(String[] args) {
+		System.out.println("Hello World");
+		
+		Main a2=new Main();
+	    a2.m3();
+		
+	}
+}
+/*
+
+Hello World
+I am first2
+I am first776
+I am Second3
+I am first1
+*/
