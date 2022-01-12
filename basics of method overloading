@@ -1,0 +1,73 @@
+package dhiraj;
+
+class A{
+	
+	void m1(int x) {
+		System.out.println("I am integer: "+x);
+	}
+	
+	void m1(float x) {
+		System.out.println("I am float: "+x);
+	}
+	
+	void m1(char x) {
+		System.out.println("I am character: "+x);
+	}
+	
+	void m1(String x) {
+		System.out.println("I am string: "+x);
+	}
+	
+	void m1(byte x) {
+		System.out.println("I am byte: "+x);
+	}
+	
+	void m1(Object x) {
+		System.out.println("I am Object: "+x);
+	}
+}
+public class B extends A {
+	
+	
+	static int m2() {
+		return 'b';
+	}
+	public static void main(String[] args) {
+		B obj=new B();
+		A obj1=new A();
+		obj.m1(10);
+        float f='1';
+        obj.m1(f);
+        
+        Object  obj2='d';
+        obj.m1(obj2);
+        
+        char ch='c';
+        obj.m1(ch);
+        obj.m1((int)ch);
+        obj.m1((float)ch);
+        obj.m1((byte)ch);
+        obj.m1((Object)ch);
+        
+        obj.m1('a'+'b');
+        obj.m1("Dhiraj"+"Gardi");
+        obj.m1('a'+(char)'b');
+       
+        obj.m1(m2());
+	}
+
+}
+/*
+I am integer: 10
+I am float: 49.0
+I am Object: d
+I am character: c
+I am integer: 99
+I am float: 99.0
+I am byte: 99
+I am Object: c
+I am integer: 195
+I am string: DhirajGardi
+I am integer: 195
+I am integer: 98
+*/
