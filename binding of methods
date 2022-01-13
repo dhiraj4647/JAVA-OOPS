@@ -1,0 +1,45 @@
+package dhiraj;
+class AB{
+	void m2(AB x) {
+		System.out.println(x);
+	}
+}
+public class Overloading extends AB{
+	void m1(double x) {
+		System.out.println("Double");
+	}
+	
+	void m1(byte b) {
+		System.out.println("byte");
+	}
+	
+	void m1(int b) {
+		System.out.println("Integer");
+	}
+	
+	
+	
+	
+	public static void main(String[] args) {
+		Overloading obj=new Overloading();
+		AB obj2=new AB();
+		obj.m1(12);//Integer
+		obj.m1(12.23);//Double
+		obj.m1(122.23f);//double
+		obj.m1((byte)10);//Byte
+		obj.m1(12L);//double
+		obj.m1('a');//Integer
+		obj.m2(new AB());
+		obj.m2(new Overloading());
+		obj.m2(null);
+		}
+
+}
+/*
+ It uses widening technique then also checks the auto boxing type then it will check 
+ var-arg type.
+byte-->short--->integer--->long--->float---->double.
+
+During referenced type as a parameter then it should be same as parameter type or it should be
+the subclass object of that object parameter.
+*/
