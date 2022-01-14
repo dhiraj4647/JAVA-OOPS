@@ -1,0 +1,51 @@
+package dhiraj;
+class Example{
+	 void add(int x, int y) {
+		System.out.println("Example int method");
+	}
+	void add(String x, float y) {
+		System.out.println("Example float method");
+	}
+	void add(String x, String y) {
+		System.out.println("Example String method");
+	}
+}
+class Sample extends Example{
+	 void add(int x, int y) {
+		System.out.println("Sample int method");
+	}
+	void add(float x, int y) {
+		System.out.println("Sample float method");
+	}
+	void add(String x, double y) {
+		System.out.println("Sample string method");
+	}
+}
+public class Inheritance {
+
+	public static void main(String[] args) {
+		Sample obj=new Sample();
+		obj.add(10,20);
+        obj.add("dhiraj", 70.9);
+        obj.add("dhiraj", "dhiraj");
+        obj.add("dhiraj", 89f);
+        obj.add(10, 'h');
+	}
+
+}
+
+/*
+ Sample int method
+Sample string method
+Example String method
+Example float method
+Sample int method
+
+
+method execution with inheritance relation :
+1)first it will search method with given argument type in subclass.
+if not found it will search into superclass.
+2)then it searches with widening, auto boxing, var arg-type in subclass 
+if not found it will search into superclass .
+3) finally throws CE as not found error.
+*/
