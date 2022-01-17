@@ -1,0 +1,64 @@
+package dhiraj;
+class SuperClass{
+	SuperClass(){
+		this(10);
+		System.out.println("super class no arg");
+	}
+	SuperClass(int x){
+		this("tommy");
+		System.out.println("super class int  arg");
+	}
+	SuperClass(String x){
+		
+		System.out.println("super class String arg");
+	}
+}
+class SubClass extends SuperClass {
+	SubClass(){
+		this(10);
+		System.out.println("Sub class no arg");
+	}
+	SubClass(int x){
+		this("tommy");
+		System.out.println("Sub class int  arg");
+	}
+	SubClass(String x){
+		
+		System.out.println("Sub class String arg");
+	}
+}
+public class superdemo {
+
+	public static void main(String[] args) {
+		new SubClass();
+		/*
+		super class String arg
+		super class int  arg
+		super class no arg
+		Sub class String arg
+		Sub class int  arg
+		Sub class no arg
+		 */
+		System.out.println();
+		new SubClass(10);
+		/*
+		super class String arg
+		super class int  arg
+		super class no arg
+		Sub class String arg
+		Sub class int  arg
+		 */
+		System.out.println();
+		new SubClass("John Boy");
+		/*
+		super class String arg
+		super class int  arg
+		super class no arg
+		Sub class String arg
+		
+		 */
+
+	}
+
+}
+
