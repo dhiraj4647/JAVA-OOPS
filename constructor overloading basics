@@ -57,4 +57,7 @@ NSB
 String argument constructor
 obj2.x:50
 
+
+compiler does not place this() and super() call in one constructor becoz the subclass object gets superclass object more than once thats why compiler does not place both 
+in same constructor.
 */
