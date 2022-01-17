@@ -1,0 +1,57 @@
+package dhiraj;
+class XY{
+	final void m1() {
+		System.out.println("I am superclass m1 method");
+		m2();
+	}
+	private void m2() {
+		System.out.println("I am superclass m3 method");
+	}
+	void m3() {
+		System.out.println("I am superclass method3");
+	}
+	
+	final void m5(int x) {
+		System.out.println("I am superclass int argument method");
+	}
+}
+class Z extends XY{
+	void m4() {
+		super.m1();
+		System.out.println("I am subclass m1 method");
+	}
+	void m2() {
+		
+		System.out.println("I am subclass m2 method");
+	}
+	final void m3() {
+		System.out.println("I am superclass method3");
+	}
+	final void m5(String x) {
+		System.out.println("I am superclass String argument method");
+	}
+}
+public class FinalMethod {
+
+	public static void main(String[] args) {
+		Z obj=new Z();
+		obj.m1();
+		obj.m4();
+		System.out.println();
+		XY obj1=new Z();
+		obj1.m1();
+		
+	}
+
+}
+/*
+I am superclass m1 method
+I am superclass m3 method
+I am superclass m1 method
+I am superclass m3 method
+I am subclass m1 method
+-private method can be overridden but final method cannot be overridden.
+private method cannot called from subclass but final can.
+-We can overload final method ex:m5() method.
+-We can override the non final class into final one ex:m3() method.
+*/
