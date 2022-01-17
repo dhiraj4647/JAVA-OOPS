@@ -1,0 +1,60 @@
+package dhiraj;
+class Example1{
+	int x=m1();
+	{
+		System.out.println("NSB");
+	}
+	int m1() {
+		System.out.println("I am m1 method");
+		return 10;
+	}
+	Example1(){
+		this(10);
+		x=90;
+		System.out.println("No arguent constructor");
+	}
+	Example1(int y){
+		this("Tommy");
+		x=70;
+		System.out.println("Int argument constructor");
+	}
+	Example1(String s){
+		x=50;
+		System.out.println("String argument constructor");
+	}
+}
+public class ConstructorOverloading {
+
+	public static void main(String[] args) {
+		Example1 obj=new Example1();
+		System.out.println("obj.x:"+obj.x);
+		
+		Example1 obj1=new Example1(10);
+		System.out.println("obj1.x:"+obj1.x);
+		
+		Example1 obj2=new Example1("Tommy");
+		System.out.println("obj2.x:"+obj2.x);
+
+	}
+
+}
+/*
+output:
+
+I am m1 method
+NSB
+String argument constructor
+Int argument constructor
+No arguent constructor
+obj.x:90
+I am m1 method
+NSB
+String argument constructor
+Int argument constructor
+obj1.x:70
+I am m1 method
+NSB
+String argument constructor
+obj2.x:50
+
+*/
