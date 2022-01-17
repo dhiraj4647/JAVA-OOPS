@@ -1,0 +1,31 @@
+package dhiraj;
+
+class SubClass {
+	
+	SubClass(String x){
+		new SubClass("Dhiraj");
+		System.out.println("Sub class String arg");
+	}
+}
+public class superdemo {
+
+	public static void main(String[] args) {
+		SubClass obj=new SubClass("Tommy");
+		
+
+	}
+}
+/*
+ output: recursive constructor call
+ 1) Rules of this():
+ i)super() and this() must be placed in first statement in constructor only.
+ ii) Both super() and this() cannot be placed in same constructor because both 
+ must be first statement.
+ iii)Multiple this() or super() calls cannot be placed in same constructor.
+ iv)In object creation we cannot able to call same constructor again and again it 
+ leads to recursive constructor call.
+ v)this() cannot be placed in all constructor at least one should be remain for super()
+ otherwise leads to recursive constructor call.
+ vi)In constructor it own constructor call cannot be placed otherwise leads to 
+ recursive constructor call.
+*/
