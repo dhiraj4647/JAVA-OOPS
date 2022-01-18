@@ -1,0 +1,107 @@
+package dhiraj;
+
+import java.util.Scanner;
+
+class XYZ{
+	 int a=90;
+	 int b=800;
+	
+}
+class ReplaceAndRemove{
+	
+	final int p=10;
+	//System.out.println(p);
+	final int s=10+20;
+	//System.out.println(s);
+	//Here compiler uses replace and remove algorithm and replace p and q value
+	
+	final int r=m1();
+	//System.out.println(r);
+	int x=9000;
+	final int t=10+x;
+	//System.out.println(t);
+	//Here compiler not uses replace and remove algorithm.
+    
+    //System.out.println(q);
+	 int m1() {
+		return 10;
+	}
+}
+
+class Example2{
+	static {
+		System.out.println("I am static block of example");
+	}
+	final static int x=90;
+	
+}
+class Static {
+	/*final int s=90;
+	final static int k=80;
+	both are of wrong designing because 100 times we load class or create object
+	it gets same value so static final variable should get value at the time of 
+	class loading means in static block and non static final variable should get 
+	memory in non static block or in constructor.*/
+	final int s;
+	final static int x;
+	Static (int s){
+		this("Tommy");
+	}
+	Static (String s){
+		this.s=90;
+	}
+	static {
+		Scanner sc=new Scanner(System.in);
+		System.out.println("Enter x value");
+		x=sc.nextInt();
+	}
+	/*
+	 static final variable can be asign in variable declaration or with any 
+	 one of the static block.
+	 no static final variable can be assign in variable declaration or in 
+	 any of non static block or any one of the constructor.
+	 */
+}
+public class FinalVariable {
+    int a=90;
+    final int b=80;
+    
+    static int c=70;
+    final static int d=60;
+    
+    static {
+    	System.out.println("I am static block");
+    }
+    void m1(int x, final int y) {
+        System.out.println(x+"--"+y);
+        a=80;
+        //b=99;The final field FinalVariable.b cannot be assigned
+        //d=9999;The final field FinalVariable.b cannot be assigned
+    }
+	public static void main(String[] args) {
+		int e=40;
+		final int f;
+		//local final variable initialization is optional.
+		//f=90; The final local variable f may already have been assigned
+		FinalVariable obj=new FinalVariable();
+		obj.m1(122, 1233);
+		
+		final XYZ obj2=new XYZ();
+		obj2.a=99000;
+		//obj2=new XYZ();error becoz reference is final.
+		Static obj3=new Static(12);
+		
+		final int q=90;
+		System.out.println(q);
+        /*compiler uses the technique that could remove the final int q=90;
+		line and directly place System.out.println(90); in .class file for 
+		fast execution*/
+		
+		System.out.println(Example2.x);//Here static block of Exmaple2 class not executed
+		//because value of x is just replaced becoz of final keyword.
+		
+	}
+
+}
+//final means making the variable constant
+//final variable name should be in capital letter
