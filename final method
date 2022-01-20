@@ -1,55 +1,65 @@
 package dhiraj;
-class XY{
+
+class Z{
+	void m1() {
+		System.out.println("I am m1 method");
+	}
+	final void m2() {
+		System.out.println("I am method21");
+		m4();
+	}
+	private void m3() {
+		System.out.println("I am m3 method");
+		
+	}
+	final static void m4() {
+		System.out.println("I am m4 method1");
+	}
+}
+
+public class FinalMethod extends Z{
 	final void m1() {
-		System.out.println("I am superclass m1 method");
-		m2();
+		System.out.println("I am m1 method");
 	}
-	private void m2() {
-		System.out.println("I am superclass m3 method");
+	final void m2(int x) {
+		System.out.println("I am method2");
 	}
-	void m3() {
-		System.out.println("I am superclass method3");
+	private void m3() {
+		System.out.println("I am m3 method");
 	}
-	
-	final void m5(int x) {
-		System.out.println("I am superclass int argument method");
+	final static void m4(int c) {
+		System.out.println("I am m4 method");
 	}
-}
-class Z extends XY{
-	void m4() {
-		super.m1();
-		System.out.println("I am subclass m1 method");
+	void m5() {
+		super.m2();//final method cannot be override but can be inherited.
+		//super.m3();Here private cannot be override(both class have its own m3()method and it cannot 
+		//be inherited.
 	}
-	void m2() {
-		
-		System.out.println("I am subclass m2 method");
-	}
-	final void m3() {
-		System.out.println("I am superclass method3");
-	}
-	final void m5(String x) {
-		System.out.println("I am superclass String argument method");
-	}
-}
-public class FinalMethod {
-
-	public static void main(String[] args) {
-		Z obj=new Z();
-		obj.m1();
-		obj.m4();
-		System.out.println();
-		XY obj1=new Z();
-		obj1.m1();
+	public static  void main(String[] args) {
+		FinalMethod obj=new FinalMethod();
+		obj.m5();
+		E obj2=new E();
 		
 	}
-
+}
+class D{
+	public static final void main(String[] args) {
+		System.out.println("I am main");
+	}
+}
+class E extends D{
+	static int a=90;
+	int b=80;
+	static {
+		System.out.println("I am static block");
+		System.out.println("A:"+a);
+		System.out.println("B:"+new E().b);
+		main(new String[0]);
+	}
 }
 /*
-I am superclass m1 method
-I am superclass m3 method
-I am superclass m1 method
-I am superclass m3 method
-I am subclass m1 method
+final method is used to stop override this method.
+we can override non-final method into final method.
 -private method can be overridden but final method cannot be overridden.
 private method cannot called from subclass but final can.
 -We can overload final method ex:m5() method.
