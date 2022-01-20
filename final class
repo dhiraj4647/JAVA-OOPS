@@ -1,0 +1,34 @@
+package dhiraj;
+final class ABCD{
+	int x=90;
+	final int y=80;
+	void m1() {
+		System.out.println("I am m1");
+	}
+	final void m2() {
+		System.out.println("I am m2");
+	}
+}
+
+public class FinalClass {
+
+	public static void main(String[] args) {
+		ABCD obj=new ABCD();
+		obj.m1();
+		obj.m2();
+		System.out.println("X:"+obj.x);
+		System.out.println("Y:"+obj.y);
+
+	}
+
+}
+/*
+ * We cannot extends final class.
+ * final class is used to stop inheritance relation.
+ * if class is final then its members are not final. We have to make final member explicitly. 
+ * We can modify the value of final class variable if the variables are not final.
+ * We are not able to override the final class methods because final class cannot be extends 
+ * We can stop creating subclass either buy using final class or making the superclass 
+  constructor private.
+  WE can also create object of final class
+ */
