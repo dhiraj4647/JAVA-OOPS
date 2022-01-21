@@ -1,0 +1,98 @@
+package dhiraj;
+abstract class DLF{
+	static int a=90;
+	int x=40;
+	
+	{
+		System.out.println("DLF NSB");
+	}
+	static {
+		System.out.println("DLF loaded");
+	}
+	abstract void m1(); 
+	
+	static void m2() {
+		System.out.println("I am DLF m2 method");
+	}
+	
+	public static void main(String[] args) {
+		m2();
+	}
+}
+
+public class Abstract extends DLF{
+	static int b=90;
+	int y=40;
+	
+	static {
+		System.out.println("subclass sB");
+		
+	}
+	
+	Abstract(){
+		System.out.println("I am abstract constructor");
+	}
+	
+	
+	
+	{
+		System.out.println("subclass NSB");
+	}
+	
+	static void m4() {
+		System.out.println("Subclass m4");
+	}
+	
+	void m5() {
+		System.out.println("Subclass NSM");
+	}
+	
+	  void m1() {
+		System.out.println("I am m1 method");
+		
+	}
+	public static void main(String[] args) {
+		
+		System.out.println("Main");
+		System.out.println("a:"+a+"--b:");
+		m2();
+		m4();
+		
+		Abstract s=new Abstract();
+		s.m1();
+		s.m4();
+		s.m5();
+	}
+	
+
+}
+
+/* 
+DLF loaded
+subclass sB
+Main
+a:90--b:
+I am DLF m2 method
+Subclass m4
+DLF NSB
+subclass NSB
+I am abstract constructor
+I am m1 method
+Subclass m4
+Subclass NSM
+ 
+1) if class does not have body then it should declare as abstract else C.E 
+2) if class have abstract method then class should declare as abstract.
+3)We cannot instantiate(create object) of abstract class becoz it is not fully implemented class
+suppose we create the object and if abstract method is called then it will not execute because
+it does not contain body.
+4)The subclass of abstract class should override all abstract methods else C.E or subclass 
+also to be declared as abstract.
+5) We cannot declare abstract method as static it leads to CE because static mehod can be invoked directly 
+thus it cannot run at run time.
+6) We cannot declare abstract method as final because it leads to C.E because final method
+cannot be override.
+7) We cannot declare abstract method as private because it leads to CE because it cannot be 
+8) We can declare concrete class as abstract class this help to access non static members
+only via subclass object.
+*/
