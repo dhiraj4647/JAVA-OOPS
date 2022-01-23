@@ -1,0 +1,43 @@
+package innerClass;
+
+public class InnerClassBasic {
+
+	static class A{//InnerClassBasic$A.class
+		
+	}
+    static class X{//InnerClassBasic$X.class
+		
+	}
+	
+	class B{
+		//InnerClassBasic$B.class
+	}
+    class Y{
+		//InnerClassBasic$Y.class
+	}
+	
+    void m1() {
+		class C{//InnerClassBasic$1C.class
+	}
+    class Z{}//InnerClassBasic$1Z.class
+		new Thread() {};//InnerClassBasic$1.class
+		new Thread() {};//InnerClassBasic$2.class
+}
+	
+    
+    void m2() {
+		class C{
+	}//InnerClassBasic$2C.class
+  
+		new Thread() {};//InnerClassBasic$3.class
+}
+}
+/*
+ Here compiler generate .class file for every inner class inside the outer class 
+ so for above program:
+ InnerClassBasic.class for outer class
+ InnerClassBasic$A.class and InnerClassBasic$X.class for static inner class
+ InnerClassBasic$Y.class and InnerClassBasic$B.class for non static inner class.
+ InnerClassBasic$1C.class and InnerClassBasic$1Z.class for method local inner class.
+ InnerClassBasic$1.class and InnerClassBasic$2.class for anonymous inner class
+ */
