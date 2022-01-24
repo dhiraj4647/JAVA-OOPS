@@ -1,0 +1,95 @@
+package innerClass;
+
+public  class StaticInnerClass {
+
+	private int a=90;
+	private static int b=70;
+	static {
+		System.out.println("outer class static block");
+	}
+	
+	{
+		System.out.println("outer class non static block");
+	}
+	
+	public StaticInnerClass() {
+		System.out.println("Outer class constructor");
+	}
+	
+	void m1() {
+		 System.out.println("Outer class non static method");
+	}
+	
+	static void m2() {
+		 System.out.println("Outer class static method");
+	}
+	
+	static class A{
+		int a=10;
+		static int b=20;
+		static {
+			System.out.println("Inner class static block");
+		}
+		
+		{
+			System.out.println("Inner class non static block");
+		}
+		
+		public A() {
+			System.out.println("Inner class constructor");
+		}
+		
+		void m1() {
+			 System.out.println("Inner class non static method");
+		}
+		
+		static void m2() {
+			 System.out.println("Inner class static method");
+		}
+		public static void main(String[] args) {
+			System.out.println("Inner class main method");
+			A obj=new A();
+			obj.m1();
+			m2();
+			System.out.println("A:"+obj.a);
+			System.out.println("B:"+b);
+			StaticInnerClass obj2=new StaticInnerClass();
+			System.out.println("Outer Class A:"+obj2.a);
+			System.out.println("Outer Class B:"+b);
+		}
+	}
+	public static void main(String[] args) {
+		System.out.println("Outer class main method");
+		StaticInnerClass obj=new StaticInnerClass();
+		obj.m1();
+		m2();
+		System.out.println("A:"+obj.a);
+		System.out.println("B:"+b);
+	}
+
+}
+/*
+ *static inner class means the class created inside class but outside all methods with static keyword.
+ *static inner class is created to create inner object of outer object common to all outer class instances.
+ *abstract, final, static and strictfp are modifiers allowed for static inner class, abstract and final cant use at same time.
+ *like outer class, inner class also can implementor interface or extends the class.
+ *Inside the static inner class we can use {SB, SM, MM, SV, static inner class, NSV, NSB, NSM, non static class, constructor, Abstract Method}.
+ *
+ Output: When we run StaticInnerClass$A.class
+ Inner class static block    
+ Inner class main method
+ Inner class non static block
+ Inner class constructor
+ Inner class non static method
+ Inner class static method
+ A:10
+ B:20
+ outer class static block
+ outer class non static block
+ Outer class constructor
+ Outer Class A:90
+ Outer Class B:70
+ 
+ */
+/*
+ *
