@@ -1,0 +1,126 @@
+package innerClass;
+
+class Example1{
+	
+	static {
+		System.out.println("Outer class static block");
+	}
+	
+	Example1(){
+		System.out.println("Non para outer class constructor");
+	}
+	
+	{
+		System.out.println("Outer class non static block");
+	}
+	
+    class ABC{//non static inner class
+		ABC(){
+			System.out.println("Non para inner class constructor");
+		}
+		
+		{
+			System.out.println("inner class non static block");
+		}
+		
+		void m1() {
+			System.out.println("Inner class m1 method");
+		}
+		
+		void m2() {
+			System.out.println("Inner class m2 method");
+			m1();
+		}
+	}
+    
+    void m1() {
+    	System.out.println("Outer class m1 method");
+    	ABC obj=new ABC();
+    	obj.m2();//calling inner class m2 method from outer class non static method
+    }
+    
+    public static void main(String[] args) {
+        System.out.println("Outer class Main method");
+        Example1 obj=new Example1();
+        obj.m1();
+        
+        //ABC obj2=new Example1().new ABC();
+        //obj2.m2();//calling inner class m2 method from outer class static method
+	}
+}
+public class NonStaticInnerClass {
+
+	static {
+		System.out.println("Outside outer class is static block");
+	}
+	
+	NonStaticInnerClass(){
+		System.out.println("Outside outer class non para constructor");
+	}
+	{
+		System.out.println("Outside outer class non static block");
+	}
+	void m1() {//calling inner class m2 method from outside outer class non static method
+		System.out.println("Outside outer class m1 method");
+		Example1.ABC obj=new Example1().new ABC();
+		obj.m2();
+	}
+	public static void main(String[] args) {
+		System.out.println("Outside Outer class main method");
+		//Example1.ABC obj=new Example1().new ABC();
+		//obj.m2();//calling inner class m2 method from outside outer class static method
+		NonStaticInnerClass obj=new NonStaticInnerClass();
+		obj.m1();
+	}
+
+}
+/*
+output:
+1)When calling inner class m2 method from outside outer class static method:(NonStaticInnerClass.class)
+Outside outer class is static block
+Outside Outer class main method
+Outer class static block
+Outer class non static block
+Non para outer class constructor
+inner class non static block
+Non para inner class constructor
+Inner class m2 method
+Inner class m1 method
+
+2)When calling inner class m2 method from outside outer class non static method:(NonStaticInnerClass.class)
+Outside outer class is static block
+Outside Outer class main method
+Outside outer class non static block
+Outside outer class non para constructor
+Outside outer class m1 method
+Outer class static block
+Outer class non static block
+Non para outer class constructor
+inner class non static block
+Non para inner class constructor
+Inner class m2 method
+Inner class m1 method
+
+3)When calling inner class m2 method from outer class static method:(Example1.class)
+
+Outer class static block
+Outer class Main method
+Outer class non static block
+Non para outer class constructor
+inner class non static block
+Non para inner class constructor
+Inner class m2 method
+Inner class m1 method
+
+4)When calling inner class m2 method from outer class non static method:(Example1.class)
+
+Outer class static block
+Outer class Main method
+Outer class non static block
+Non para outer class constructor
+Outer class m1 method
+inner class non static block
+Non para inner class constructor
+Inner class m2 method
+Inner class m1 method
+*/
