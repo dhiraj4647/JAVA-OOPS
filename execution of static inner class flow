@@ -1,0 +1,170 @@
+package innerClass;
+
+//Working with static inner class?
+//1) What is SIC?
+//2) Why is SIC?
+//3) How  SIC?
+//4) When SIC?
+//5) Allowed modifiers?
+//6) Allowed members?
+//7) Compiling and executing procedure, problem in linux?
+//8) Accessing SIC class member with in same SIC other members?
+/*
+ *  - An inner class that is created inside a class outside all method with static keyword is called static inner class.
+ *
+ *  - Static inner class is used for representing/creating inner object of an outer object
+ *    common to all instances of an outer object.
+ * 
+ *  - syntax to create SIC
+ * AM  ELM  class <classname> extedns <super class> implements <super interface1>, <super interface2>, ... {
+ *               -- static members
+ *               -- instance members
+ *               -- abstract members 
+ *       }
+ * 
+ *  - The allowed modifers are 
+ *   1) all 4 AMs are allowed
+ * 2) static, final, abstract, strictfp are allowed
+ *     Rule: we can not use both final and abstract
+ * 
+ *  - Like outer class, an inner class can extend from other class (or) can implement an interface
+ *
+ *  - the allowed members are 
+ * - all 5 static members are allowed [SV, SB, SM, MM, SIC]
+ * - all 5 non-static members are allowed [NSV, IIB, NSM, Constructor, NSIC]
+ * - also abstract method is allowed
+ *
+ * - like outer class, we can also execute SIC by using "java" command
+ * cmd>javac Example.java
+ * |-> Example.class
+ * |-> Example$A.class
+ *
+ *  - executing outer class
+ * cmd>java Example    
+ * |-> outer class is loaded
+ * |-> SV of outer class is executed
+ * |-> SB of outer class is executed
+ * |-> MM of outer class is executed
+ * 
+ * Note: SIC is not loaded and its members are not executed
+ * SIC is loaded and its members are executed only when 
+ * 1) we run it by using java command explicitly (or)
+ * 2) we run access its members from outer class
+ * 
+ * - executing static inner class 
+ * cmd>java Example$A 
+ * |-> inner class is loaded
+ * |-> SV of inner class is executed
+ * |-> SB of inner class is executed
+ * |-> MM of inner class is executed
+ *
+ * Note: OC is not loaded and its members are not executed
+ * OC is loaded and its members are executed only when 
+ * 1) we run it by using java command explicitly (or)
+ * 2) we run access its members from inner class
+ *
+ *  - accessing inner class members with in the same inner class from other members
+ * Like regular class members, we must access SIC members with the same same SIC as below
+ * 1) Static members can be accessed diretly by their name from main method
+ * 2) Non-static members must be accessed by using SIC object reference
+ *
+ * - accessing inner class members from outer class
+ * we must use SIC name or SIC object reference 
+ * 1) Static members must be accessed by using SIC name 
+ * 2) Non-static members must be accessed by using SIC object reference
+ *
+ * - accessing inner class members from outside outer class
+ * we must use both OCName and SIC name or SIC object reference 
+ * 1) Static members must be accessed by using OC.SIC name 
+ * 2) Non-static members must be accessed by using OC.SIC object reference
+ *
+ * - SIC object creation
+ * 1) within the same SIC or within its outer class, 
+ * we will create object of SIC like regular class object
+ * A a1 = new A();
+ * 
+ * 2) In outside outer class, we must access Inner class by using outer class name
+ * Example.A a1 = new Example.A();
+ *
+ */
+class Example {
+	static {
+		System.out.println("Outer Class Static Block");
+	}
+
+	public static void main(String[] args) {
+		System.out.println("Outer Class main");
+		A.m1();
+		A a1 = new A();
+		a1.m2();
+	}
+
+	static class A { // SIC
+		static int a = 10;
+		int x = 20;
+		static {
+			System.out.println("Static Inner Class Static Block");
+		}
+
+		static void m1() {
+			System.out.println("Static Inner Class Static Method");
+		}
+
+		void m2() {
+			System.out.println("Static Inner Class Non Static Method");
+		}
+
+		public static void main(String[] args) {
+			System.out.println("Static Inner Class Main Method");
+			m1();
+			A a1 = new A();
+			a1.m2();
+		}
+
+		static class B {
+			
+		}
+
+		
+//abstract void m3();  //allowed
+	}// SIC is end
+}// OC close
+
+
+
+public class InnerClass {//outside outer class
+
+	static {
+		System.out.println("OOC SB");
+	}
+
+	public static void main(String[] args) {
+		System.out.println("OOC MM");
+		Example.A.m1();
+//A a1 = new A();
+		Example.A a1 = new Example.A();
+		a1.m2();
+	}
+}
+/*
+output: when we run the InnerClass.class
+OOC SB
+OOC MM
+Static Inner Class Static Block
+Static Inner Class Static Method
+Static Inner Class Non Static Method
+
+output: when we run the Example.Class
+Outer Class Static Block
+Outer Class main
+Static Inner Class Static Block
+Static Inner Class Static Method
+Static Inner Class Non Static Method
+
+output: when we run the Example$A.Class
+
+Static Inner Class Static Block
+Static Inner Class Main Method
+Static Inner Class Static Method
+Static Inner Class Non Static Method
+*/
