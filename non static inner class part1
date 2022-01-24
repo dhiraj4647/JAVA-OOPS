@@ -1,0 +1,153 @@
+//Working with non-static inner class?
+//1) What is NSIC?
+//2) Why is NSIC?
+//3) How  NSIC?
+//4) When SIC?
+//5) Allowed modifiers?
+//6) Allowed members?
+//7) Compiling and executing procedure, problem in linux and its solution?
+//8) Accessing SIC class members with in same SIC ?
+//9) Accessing SIC class members from outer class and outside outer class?
+//10) SIC class object createion in SIC, in OC and in OOC?
+/*
+ *  - An inner class that is created inside a class outside all method without static keyword is called non-static inner class.
+ *
+ *  - Non-Static inner class is used for representing/creating inner object of an outer object
+ *    and further to create instance sepecific of IC separately for each instance of an outer class object .
+ *
+ * - For example:
+ * - For each instance of Car object, we must have separate engine object
+ * - Here inside Car class we must create Engine class as non-static inner class
+ * - So that we will create one engine of engine per one instance of Car
+ * 
+ *  - Syntax to create NSIC
+ * AM  ELM class <classname> extends <super class> implements <super interface1>, <super interface2>, ... {
+ *               -- instance members
+ *               -- abstract members 
+ *       }
+ * - Note: inside NSIC we can not create static members, compiler will throw error
+ * - because NSIC does not have its own memory, it will get memory only by outer class instance
+ *
+ *  - Like outer class, an inner class can extend from other class (or) can implement an interface
+ *
+ *  - The allowed modifers are 
+ *   1) all 4 AMs are allowed
+ * 2) final, abstract, strictfp are allowed
+ *     Rule: we can not use both final and abstract
+ *     Note: static is not allowed, if we apply static no CE, no RE, it will be SIC
+ *     
+ *  - the allowed members are only instance members and abstract method
+ * - all 5 non-static members are allowed [NSV, IIB, NSM, Constructor, NSIC]
+ * - also abstract method is allowed
+ *     note: static final variable with initialization is allowed
+ *
+ * - we can not execute non-static inner class, because we do not have main method in NSIC
+ *
+ * cmd>javac Example.java
+ * |-> Example.class
+ * |-> Example$A.class
+ *
+ * - executing non-static inner class 
+ * cmd>java Example$A 
+ * - we will get RE: main method not found
+ *
+ *  - accessing inner class members with in the same inner class from other members
+ *      - Like regular class non-static members, we can access one non-static member from other non-static member directly by their name.
+ *        at compilation time compiler will place, this kw reference.
+ *      - then those members are executed from current object this inner class
+ * - for executing that other non-static member we need main method, 
+ *    we must use that main method either from OC or from OOC
+ *
+ * - accessing inner class members from outer class
+ * - we must create object of inner class to access non-static members
+ *
+ * - accessing inner class members from outside outer class
+ * - we must create object of inner class to access non-static members
+ *
+ * - NSIC object creation in OC members 
+ * 1) within the static method 
+ * ICname refVar = OuterClassObj.new IC();
+ * A a1 = new Example().new A();
+ *
+ * 2) within the non-static method 
+ * ICname refVar = new IC();
+ * A a1 = new A();
+ *
+ * Note: implicitly compiler adds this reference to IC object
+ * =>    ICname refVar = this.new IC();
+ * => A a1 = this.new A();
+ * - NSIC object creation in OOC members  
+ * Example.A a1  = new Exampe().new A();
+ *
+ *  - Diff members executed from and OC and NSIC
+ * because for creating IC object, we must create object of OC 
+ * hence both OC and IC are a loaded into JVM 
+ * - first SV, SB, NSV, IIB, Constructor are executed from OC 
+ * - then NSV, IIB, Constructor are executed from NIC 
+ * - finally the invoked method is executed from NIC 
+ *
+ *- Diff in syntax in object creation from SIC and NSIC 
+ * SIC --> 
+ * A a1 = new A();
+ * Example.A a1 = new Example.A();
+ *
+ * NSIC --> 
+ * A a1 = new A();
+ * A a1 = new Example().new A();
+ * Example.A a1 = new Example().new A();
+ */
+class Example {
+	static {
+		System.out.println("OC SB ");
+	}
+
+	public static void main(String[] args) {
+		System.out.println("OC main");
+		Example e1 = new Example();
+		A a1 = e1.new A();
+		Example e2 = new Example();
+		e2.m1();
+	}
+
+	void m1() {
+		A a1 = new A();
+	}
+
+	class A { // NSIC
+		static final int a = 10;
+		int x = 20;
+		{
+			System.out.println("  NSIC IIB ");
+		}
+
+		A() {
+			System.out.println("  NSIC NPC");
+		}
+
+		void m1() {
+			System.out.println("  NSIC NSM");
+		}
+
+		void m2() {
+			System.out.println("In NSIC m2 x: " + x);
+			m1();
+		}
+
+		class C {
+		}
+//abstract void m3();  //allowed
+	}// NSIC is end
+}// OC close
+
+class Test08 { // outside outer class
+	static {
+		System.out.println("OOC SB");
+	}
+
+	public static void main(String[] args) {
+		System.out.println("OOC MM");
+		Example.A a1 = new Example().new A();
+		System.out.println("  " + a1.x);
+		a1.m1();
+	}
+}
