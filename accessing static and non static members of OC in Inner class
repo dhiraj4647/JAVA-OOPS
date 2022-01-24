@@ -1,0 +1,59 @@
+package innerClass;
+
+/*
+ * Inside SIC
+ * -We can access static members of OC in both static and non static members.
+ * -We can't access non static members of OC directly from static and non static members
+ *   we must create object for that
+ * 
+ * Inside NSIC
+ * -We can access static and non static members of OC directly by their name.     
+ */
+class Example2{
+	static int a=10;
+	int x=90;
+	
+	static class A{
+		static int b=20;
+		int y=80;
+		static void m1() {
+			System.out.println(a);
+			System.out.println(b);
+			Example2 obj=new Example2();
+			System.out.println(obj.x);
+			A obj2=new A();
+			System.out.println(obj2.y);
+			InnerClasses obj3 =new InnerClasses();
+			System.out.println(obj3.a);
+		}
+		void m2() {
+			System.out.println(a);
+			System.out.println(b);
+			Example2 obj=new Example2();
+			System.out.println(obj.x);
+			System.out.println(y);
+		}
+	}
+	
+	class B{
+		int b=990;
+		void m1() {
+		System.out.println(a);
+		System.out.println(x);
+		System.out.println(b);
+		}
+	}
+}
+public class InnerClasses {
+    int a=10;
+    static int b=900;
+	public static void main(String[] args) {
+		Example2.A obj=new Example2.A();
+		Example2.A.m1();
+		obj.m2();
+        System.out.println();
+		Example2.B obj1=new Example2().new B();
+		obj1.m1();
+	}
+
+}
