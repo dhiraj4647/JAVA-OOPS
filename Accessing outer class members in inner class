@@ -1,0 +1,45 @@
+package innerClass;
+class Example2{
+	static int a=90;
+	int x=10;
+	
+	static class A{
+		static int a=80;
+		int x=20;
+		static void m1() {
+			int a=70;
+			System.out.println(a);
+			System.out.println(A.a);
+			System.out.println(Example2.a);
+		}
+		void m2() {
+			int x=30;
+			System.out.println(x);
+			System.out.println(new A().x);
+			System.out.println(new Example2().x);
+		}
+	}
+	
+	class B{
+		int x=50;
+		void m1() {
+			System.out.println(x);
+			System.out.println(a);
+			System.out.println(this.x);//new A().x
+			System.out.println(Example2.this.x);//new Example2().new A().x
+		}
+	}
+}
+public class InnerClasss {
+
+	public static void main(String[] args) {
+		Example2.A.m1();
+		System.out.println();
+		Example2.A obj=new Example2.A();
+		obj.m2();
+		System.out.println();
+		new Example2().new B().m1();
+
+	}
+
+}
