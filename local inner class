@@ -1,0 +1,182 @@
+package innerClass;
+/*
+ *  An inner class that is created inside a method/constructor/static and instance blocks are called local inner class.
+ *  
+ *  We will create local class for two reasons
+ * 1) When we need to represent inner object of an outer object to be used only for one operation
+ * 2) For extends or implementing an outer clas or outer interface and for creating and returning its object
+ * 
+ *  Syntax for creating local class 
+ * class A { 
+ *     static void m1() {
+ * ELM class <classname> extends <super class name> implements <super interfaces> {
+ * -- instance members 
+ * -- abstract methods
+ * }
+ *    }
+ * }
+ *
+ *  Allowed modifiers? 
+ *  - final abstract strictfp 
+ *
+ * Rule: all 4 AMs and static modifer are not allowed inside method
+ * 
+ *  Allowed members? 
+ * -- IV, IIB, Constuctor, IM, NSIC
+ * -- abstrat method
+ * 
+ *  Execution processor? 
+ * - we can not execute LIC directly by using java command
+ * becuase we donot have main method in it.
+ * 
+ * - for execution LIC membes, we must access them its enclosing method
+ * and further we must invoke this enclosing method either from OC or from OOC
+ * 
+ * - In order to invoke LIC class memebers from its enclosing method
+ * we must create object of LIC, becasue all membefers LIC are non-static members 
+ * 
+ * - Rule #1: we must create LIC object only after its declation  
+ * if we create its object before its declration we will get CE: c f s class A
+ * 
+ * - Rule #2: we can not accerss create LIC from other methods
+ * because its scope is only for one method. If try to access we wil CE: c f s class A
+ *
+ *  - Accessing LIC members 
+ * - we can access LIC members only with in the enclosing method after LIC declaration
+ * - If we need to access LIC membes from outside of its inclosing method,
+ * we must define this LIC as derived class of either a class or an interface,
+ * and them we must return this LIC object from this method
+ *
+ * -  Accessing OC members in LIC
+ * - If we create LIC inside OC static method
+ * - We can access OC static members directly by thier name
+ * - We must access OC non- static members by using OC object
+ *
+ * - If we create LIC inside OC non-static method
+ * - Both static and non-static members OC can be accessed directly by thier name
+ *
+ * - Variable shadowing in LIC?
+ * - we can differentiate OC variables from LIC variable 
+ * - either by using OC name 
+ * - or       by using OCname.this
+    *
+    * but we can not differentiate enclosing variables from LIC variables
+    *
+    * - Modifying OC variables and enclosing method local and parameters in LIC methods
+    * - Inside LIC methods 
+ * - we can modify OC static and non-static variables
+    * - but we can not modify enclosing method paramter and local variable values. 
+ *
+    * compiler will throw an errror : local variable must final or effectively final
+    *
+    */
+interface I1{
+	void m1();
+}
+class Example3{
+	static {
+		System.out.println("Outer class is loaded");
+	}
+	static void m1() {
+		
+		class A{
+			int a=90;
+			{
+				System.out.println("Inner class NSB");
+			}
+			void m1() {
+				System.out.println("Inner class m1 method");
+			}
+			A(){
+				System.out.println("Inner class non para constructor");
+			}
+			
+		}
+		A a1=new A();
+		a1.m1();
+	}
+	//Accessing LIC members 
+	static I1 m2() {
+		class B implements I1{
+
+			@Override
+			public void m1() {
+				System.out.println("I am inner class B, m1 method");
+			}
+			
+		}
+		B b1 =new B();
+		return b1;
+	}
+	//Accessing OC members in LIC 
+	static int a=90;
+	int b=80;
+	static void m3() {
+		class C{
+			void m1() {
+				System.out.println(a);
+				System.out.println(new Example3().b);
+			}
+		}
+	}
+	//Accessing OC members in LIC 
+	void m4() {
+		class D{
+			void m1() {
+				System.out.println(a);
+				System.out.println(b);
+			}
+		}
+	}
+	//Variable shadowing in LIC
+	static int x=90;
+	int y=80;
+	void m5() {
+		int x=10;
+		int y=20;
+		class E{
+			int x=30;
+			int y=40;
+			void m1() {
+				int x=50;
+				int y=60;
+				System.out.println(x);//50
+				System.out.println(y);//60
+				System.out.println(new E().x);//30 this.x
+				System.out.println(new E().y);//40 this.y
+				//WE CANT ACCESS M5 LOCAL VARIABLES IN LIC METHOD (NO SYANTAX AVAILABLE FOR THAT)
+				System.out.println(Example3.x);//90
+				System.out.println(new Example3().y);//80
+			}
+		}
+		E e1=new E();
+		e1.m1();
+	}
+	//Modifying OC variables and enclosing method local and parameters in LIC methods
+	int d=90;
+	static int e=78;
+	void m7(int m) {
+		int a=89;
+		class F{
+			void m1() {
+				//m=90;
+				//a=90;
+				d=88;
+				e=34;
+			}
+		}
+	}
+}
+public class LocalInnerClass {
+
+	public static void main(String[] args) {
+		Example3 obj=new Example3();
+		Example3.m1();
+		I1 i1=Example3.m2();
+		i1.m1();
+		System.out.println();
+		obj.m5();
+
+	}
+
+}
