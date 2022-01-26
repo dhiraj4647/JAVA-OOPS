@@ -1,0 +1,204 @@
+package innerClass;
+
+import java.util.Scanner;
+
+/*
+ *  An inner class that is created inside a class/method/constructor/static block and instance blocks 
+ *  without explicit name is called anonymous inner class.
+ *
+ * A nameless inner class is nothing but anonymous inner class
+ * 
+ *  We will create anonymous class 
+ * For extending or implementing an outer class or outer interface 
+ * and for creating, returning or passing its object
+ * 
+ *  Syntax for creating anonymous class 
+ * class A { 
+ *     static void m1() {
+ * new <super class name>/<super interface name>() {
+ * -- NSV, IIB, NSM, NSIC
+  -- overidding or implementing methods
+ * };
+ *
+    * (Or)
+ *
+ * <super class name>/<super interface name> refVar = 
+ * new <super class name>/<super interface name>() {
+ * -- instance members 
+ * 
+ * };
+ *    }
+ * }
+ *
+    * Does really AIC not have name?
+    * - explicitly no name, but implicitly compiler  generates name for AIC 
+    * - naming convesion is OC$<n>.class. 
+ * For example: 
+ * Example$1.class
+    *
+ * Can it derive from a super class or super interface?
+ * - It must be derived from a class or an interface
+ * - AIC can exist only as sub type/derived type
+ *
+ * Rules in creating AIC
+ * 1) It must ends with ; because it is an expression
+ * 2) If it is deriving from an abstract or from an interface
+ * it must implement abstract methods available in abstract class and interface
+ * 3) If it deriving from an interface, we must implement method  
+ * with public accessessibility modifier 
+ * 
+    *  Allowed modifiers? 
+ *  - modifiers are not allowed because there is not explicit declaration to AIC 
+ *
+ *  Allowed members? 
+ * -- NSV, IIB,  NSM, NSIC
+ *
+ * Rule #1: Inside AIC we can not define constructor, because it is nameless class
+ * Rule #2: Inside AIC we can not declare abstract method, because we can not declare AIC as abstract
+ * 
+ *  Execution processor? 
+ * - we can not execute AIC directly by using java command
+ * becuase we donot have main method in it.
+ *
+ * - if we call its enclosing method, AIC object creation statment is executed
+ * it NSV, IIB and constructor are executed. But NSV value is not display and NSM is not exeucted
+ * NSV value is displayed and NSM logic is executed only when invoke them
+ * 
+ * - for executing AIC members, we must access them from its overriding or implementing method
+ * and further we must invoke that overriding or implementing method either from OC or from OOC
+ * 
+ *  - Accessing LIC members 
+ * - we can access LIC members only with in the enclosing method after LIC declaration
+ * - If we need to access LIC membes from outside of its inclosing method,
+ * we must define this LIC as derived class of either a class or an interface,
+ * and them we must return this LIC object from this method
+ *
+ * -  Accessing OC members in LIC
+ * - If we create LIC inside OC static method
+ * - We can access OC static members directly by thier name
+ * - We must access OC non- static members by using OC object
+ *
+ * - If we create LIC inside OC non-static method
+ * - Both static and non-static members OC can be accessed directly by thier name
+ *
+ * - Variable shadowing in LIC?
+ * - we can differentiate OC variables from LIC variable 
+ * - either by using OC name 
+ * - or       by using OCname.this
+    *
+    * but we can not differentiate enclosing variables from LIC variables
+    *
+    * - Modifying OC variables and enclosing method local and parameters in LIC methods
+    * - Inside LIC methods 
+ * - we can modify OC static and non-static variables
+    * - but we can not modify enclosing method paramter and local variable values. 
+ *
+    * compiler will throw an errror : local variable must final or effectively final
+    *
+    */
+
+interface I2 {
+	void m1();
+}
+
+class A {
+	void m1() {
+		System.out.println("A class m1 method");
+	}
+}
+
+class Example4 {
+	void m1() {
+		I2 i1 = new I2() {
+
+			@Override
+			public void m1() {
+				System.out.println("m1 method");
+
+			}
+
+		};
+		i1.m1();
+
+		new A() {// A a=new A(){
+			{
+				System.out.println("NSB of AIC ");
+			}
+			int a = 90;
+
+			void m1() {
+				System.out.println("AIC m1 method");
+				super.m1();
+			}
+
+			static class P {
+			}
+		}.m1();
+
+		// a.m1();
+	}
+
+}
+
+public class AnnonymousInnerClass {
+
+	public static void main(String[] args) {
+		new Example4().m1();
+        new Painter().paint();
+        Abc.m1();
+	}
+
+}
+
+//Develop AIC for implementing Shpare interface method findArea()
+interface Shape {
+	void findArea();
+}
+
+class Painter {
+	void paint() {
+		new Shape() {
+			private double l;
+			private double b;
+			{
+				Scanner scn = new Scanner(System.in);
+				System.out.print("Enter l: ");
+				this.l = scn.nextDouble();
+				System.out.print("Enter b: ");
+				this.b = scn.nextDouble();
+			}
+
+			@Override
+			public void findArea() {
+				System.out.println("Area: " + (l * b));
+			}
+		}.findArea();
+	}
+}
+
+class Abc {
+	static int a = 10;
+	int x = 20;
+
+	static void m1() {
+		int a = 170;
+		int x = 180;
+		new A() {
+			int a = 50;
+			int x = 60;
+
+			@Override
+			void m1() {
+				int a = 70;
+				int x = 80;
+				System.out.println(a);
+				System.out.println(x);
+				System.out.println(this.a);
+				System.out.println(this.x);
+				System.out.println(Abc.a);
+				System.out.println(new Abc().x);
+//System.out.println(Abc.this.x);
+			}
+		}.m1();
+	}
+}
