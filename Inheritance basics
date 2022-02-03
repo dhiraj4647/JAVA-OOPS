@@ -1,0 +1,48 @@
+package oops;
+/*
+ * Inheritance in Java:-
+ * 1)The process of defining a class to acquire the other class objects into our class and reusing and changing 
+ *   its object members using our objects or class name. 
+ *   -Here changing means overriding the existed functionality of object or adding more functionality.
+ * 2)The main advantages of inheritance is:
+ *   -Adding new behaviours by overriding the function. 
+ *   -Adding more behaviours by defining the new method.
+ *   -To reuse its members by using our class name.
+ * 3)By using extends (between two classes or interface) or implements(between class and interface)
+ *   We are implementing inheritance relation.
+ * 4)Types of Inheritance:-
+ *   i]Single level inheritance: If two class or two interfaces or class and interfaces participate in
+ *   an inheritance is called Single LEvel Inheritance.
+ *   ii]Multilevel Inheritance: If more than two class participate in Inheritance relation vertically
+ *   is called multi-level Inheritance.
+ *   iii]Hierarchical Inheritance: If we derive multiple subclass from single superclass is called as 
+ *   Hierarchical Inheritance.
+ *   iv]Multiple Inheritance: Deriving a subclass from multiple superclass is called multiple inheritance.
+ *   -Interfaces are mainly used for supporting multiple inheritance      
+ */
+class Ab{
+	static int a=90;
+	int b=90;
+	static void  m1() {
+		System.out.println("superclass M1 method");
+	}
+	void m2() {
+		System.out.println("superclass M2 method");
+	}
+	
+}
+
+public class Test03 extends Ab {
+	void m2() {
+		System.out.println("subclass M2 method");
+	}
+	public static void main(String[] args) {
+		System.out.println(a);
+		m1();
+		Test03 obj=new Test03();
+		System.out.println(obj.b);
+		obj.m2();
+
+	}
+
+}
