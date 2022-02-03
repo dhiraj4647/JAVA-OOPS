@@ -1,54 +1,77 @@
-package dhiraj;
-
-class Sample {
-    //Overridden method
-	void m1() {
-		System.out.println("I am first");
-	}
-
-	void m2() {
-		System.out.println("I am Second");
-		m1();
-	}
-    //overridden method.
-	void m3() {
-		System.out.println("I am superclass third method");
-	}
-}
-
-public class Main extends Sample {
-	//overriding method
-	void m1() {
-
-		System.out.println("I am new");
-	}
-    //overriding method
-	void m3() {
-		System.out.println("I am subclass third method");
-		super.m3();// to access the overridden method use super keyword
-	}
-
-	public static void main(String[] args) {
-		System.out.println("Hello World");
-		Sample a1 = new Main();
-		Main a2 = new Main();
-		a1.m1();
-		a1.m2();
-		a2.m1();
-		a2.m2();
-
-		a2.m3();
-	}
-}
-
+package oops;
 /*
-Hello World
-I am new
-I am Second
-I am new
-I am new
-I am Second
-I am new
-I am subclass third method
-I am superclass third method
+ * Method Overriding and Method Hiding:
+ * 1)Redefining a super class static method into subclass with subclass required logic is called M hiding.
+ * 2)Redefining a super class non static method into subclass with subclass required logic is called M Overriding.
+ * 3)Compiler & JVM first search the SM and NSM method in referenced variable class. If available compile fine. If not available
+ *   Compiler and JVM search it in referenced variable super class until java.lang.Object class.
+ *   If not found it throws error. 
+ *    
+ *    -If method is available in referenced variable class their execution is depend on :
+ *        -Based on method type (SM or NSM).
+ *        -Based on object
+ *    -If method is static method it directly execute from from referenced variable class.
+ *    -If method is non static method it executes from Current object class. 
+ * 4)Static method called as method hiding because it always executes from current refernecd variable class but Non static method always executes from current object class if it overrides.
+ *        
+ */
+class A{
+	static void m1() {
+		System.out.println("A m1");
+	}
+	void m2() {
+		System.out.println("A m2");
+	}
+	void m3() {
+		System.out.println("A m3");
+	}
+}
+class B extends A{
+	static void m1() {
+		System.out.println("B m1");
+	}//Method Hiding
+	void m2() {
+		System.out.println("B m2");
+	}//Method Overloading
+	void m4() {
+		System.out.println("B m4");
+	}
+}
+public class Test04 {
+	public static void main(String[] args) {
+		B b=new B();
+		b.m1();//search Non para m1 method in refer variable Class i.e class B if found execute from there.  
+		b.m2();//search Non para m2 method in refer variable Class i.e class B if found execute from there.
+		b.m3();//search Non para m3 method in refer variable Class i.e class B if found execute from there otherwise search it in its superclass.
+		b.m4();////search Non para m4 method in refer variable Class i.e class B if found execute from there.
+		
+		System.out.println();
+		
+		A a=new A();
+		a.m1();//search Non para m1 method in refer variable Class i.e class A if found execute from there.
+		a.m2();//search Non para m2 method in refer variable Class i.e class A if found execute from there.
+		a.m3();//search Non para m3 method in refer variable Class i.e class A if found execute from there.
+		//a.m4();//search Non para m1 method in refer variable Class i.e class A if not found search it in its super class not found throw error.
+		
+		System.out.println();
+		
+		A a1=new B();
+		a1.m1();//Search non para method in referenced variable class i.e Class A if available check
+		//it is SM or NSM if it is SM execute from referenced variable class.
+		
+		a1.m2();//Search non para method in referenced variable class i.e Class A if available check
+		//t is SM or NSM if it is NSM execute from current object class.
+		
+		a1.m3();//Search non para method in referenced variable class i.e Class A 
+		//if available check it is SM or NSM if it is NSM check it is available in 
+		//current object class if there execute from Current object class else execute 
+		//from refer variable class.
+		//a1.m4();//Here current object comes into picture only if method is available into the referenced variable class.
+		
+	}
+    
+}
+/*
+ *Here just remember JVM and compiler always search for method in referenced variable class and search into its super class till it found, if its available
+ *if its static it will directly execute from refeneced variable class and if non static method and it is overriding in subclass then it will execute from current object class.  
 */
