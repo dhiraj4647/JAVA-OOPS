@@ -1,0 +1,42 @@
+package oops;
+/*
+ * Encapsulation in java:-
+ * 1)The Process of defining a class by hiding its data from direct access from outside class members
+ *  and providing access only by using setters and getters method with proper validation and authentication
+ *  is called as Encapsulation.
+ * 2)We can achieve the data encapsulation by declaring variable as private and defining one pair of setters 
+ *  and getters method for that variable.
+ * 3)By defining variable as private we restrict its direct access from other class and we are declaring public 
+ *  setters and getters method to access the same variable from outside class with proper validation.
+ * 4)The main advantage of setters and getters method is that we can validate the user given values before storing it.
+ * 5)Below program is used to validate that user given value is not negative. 
+ * 
+ */
+class Bank{
+	
+	private int balance;
+	
+	public int getBalance() {
+		return balance;
+	}
+	public void setBalance(int balance) {
+		//Add validation logic
+		if(balance>0) {
+		this.balance = balance;
+		}
+		else {
+			System.out.println("enter valid amount");
+		}
+	}
+}
+public class Test02 {
+
+	public static void main(String[] args) {
+		Bank obj=new Bank();
+		//obj.setBalance(-5);
+		obj.setBalance(5000);
+		System.out.println(obj.getBalance());
+
+	}
+
+}
