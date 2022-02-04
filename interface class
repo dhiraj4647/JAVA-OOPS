@@ -1,0 +1,60 @@
+package dhiraj;
+
+interface Vechical{
+	
+	void m2();
+	void m1();
+}
+class Pulsar implements Vechical{
+	@Override
+	public void m2() {
+		System.out.println("m1 method");
+		
+	}
+	
+	public void m1() {
+		System.out.println("m2 method");
+		
+	}
+
+}
+public class InterfaceExample {
+	 
+	public static void main(String[] args) {
+		Vechical obj=new Pulsar();
+		obj.m1();
+
+	}
+	
+
+}
+/*
+-like class, interface is also referenced type variable.
+-It is used for creating main type of object by declaring all its operation.
+-interface is a specific documentation or rule between user class and implementation class.
+-it tells you what to implement but not how to implement.
+The exact difference between interface and abstraction is :
+abstraction allows us to create abstract and concrete method and interface allows us to create
+only abstract method by supporting multiple inheritance.
+1) Interface is created using interface keyword.
+2) Inside interface by default public static final variable are there. and by default 
+public abstract method are  there. 
+3)Inside the interface if we define the inner  class it is by default static inner class
+3)We cannot create static block, non static block, constructor, non static method, static and main 
+method inside interface till .
+4)from java version 8 onwards static and main method is allowed.
+
+5)Only public members is allowed inside the interface. beacause it is mediator between user class and implementation class 
+6) We can not create object of interface but we can create the reference variable of interface.
+8) We cannot declare interface as final but we can declare interface as abstract, strictfp, public.
+9) To derive interface from another interface we used extends keywords and to implements class
+from another interface we used implements keywords.  
+10)We cannot place the interface member as private or protected because we cant use the interface members outside package.
+
+*The difference between Abstract class and interface:
+*Both classes cannot be instantiated. but abstract class can be instantiated via subclass.\
+*We can create reference variable for both the classes.
+*by default the interface members access modifier is public and cannot be changed.
+*
+
+*/
