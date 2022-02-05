@@ -1,64 +1,277 @@
-package dhiraj;
-
-class Sample {
-     void m4(){
-        System.out.println("I am first1");
-    }
-     void m2(){
-        
-        System.out.println("I am Second3");
-        m4();
-    }
-} 
-class Test extends Sample{
-    void m1(){
-        System.out.println("I am first776");
-    }
-    void m3(){
-        System.out.println("I am first2");
-        m4();
-        super.m2();
-    }
-} 
-
-class Example extends Test{
-    void m2(){
-        System.out.println("I am first776");
-        
-    }
+package oops;
+/*//Method overriding
+ * 1)Adding some more logic to super class method in sub class by extending the super class method into\
+ * subclass is called method extending. 
+ * 2)For extending the static method into subclass we should call the static method of superclass into
+ * subclass static method and for extending the non static method we should call non static method 
+ * of superclass into non static method of subclass.  
+ * 2)Super keyword cannot be used in static context.
+ * 3)Extending means existing + more logic.. 
+ */
+class Person{
+	void eat() {
+		System.out.println("Veg");
+	}
 }
+class Student extends Person{
+	void eat() {
+		super.eat();
+		System.out.println("Non veg");
+		sleep();
+	}
+	void sleep() {
+		System.out.println("Sleeping");
+	}
+}
+public class Test05 {
 
-public class Main extends Example
-{
-    void m4(){
-        System.out.println("I am first776");
-        
-    }
-    void m1(){
-        System.out.println("I am first7766666");
-        
-    }
-    void m2(){
-        System.out.println("I am first776");
-        
-    }
-    
-   
-	public static void main(String[] args) {
-		System.out.println("Hello World");
-		
-		Main a2=new Main();
-	    a2.m3();
-		
+	public static void Q44(String[] args) {
+	     Person p=new Student();
+	     p.eat();
 	}
 }
 
+
+//case 1
+class A11{
+	void m1() {
+		System.out.println("A m1");
+	}
+	void m2() {
+		System.out.println("A m2");
+	}
+}
+class B11 extends A11{
+	void m1() {
+		System.out.println("B m1");
+	}
+	public static void Q44(String[] args) {
+	     B11 b=new B11();
+	     b.m1();//Here m1 method is searched in current ref class i.e. Class B so execute from here
+	     b.m2();//Here m2 method is searched in current ref class i.e. Class B if not found 
+	     //search it in its superclass found then execute from there so execute from here
+	     A11 a=new B11();
+	     a.m1();//Here m1 method is searched in current ref class A found then finds its method type i.e.
+	     //static and non static, if non static execute from object class. 
+	     a.m2();//Here m2 method is searched in current ref class A found then finds its method type i.e.
+	     //static and non static, if non static and see if its overriding if not execute from refer class.
+	}
+}
+//case2
+class A22{
+	static void m1() {
+		System.out.println("A m1");
+	}
+	void m2() {
+		System.out.println("A m2");
+	}
+}
+class B22 extends A22{
+	static void m1() {
+		System.out.println("B m1");
+	}
+	public static void Q44(String[] args) {
+		 B22 b=new B22();
+	     b.m1();//Here m1 method is searched in current ref class i.e. Class B so execute from here
+	     b.m2();//Here m2 method is searched in current ref class i.e. Class B if not found 
+	     //search it in its superclass found then execute from there so execute from here
+	     A22 a=new B22();
+	     a.m1();//Here m1 method is searched in current ref class A found then finds its method type i.e.
+	     //static and non static, if  static execute from current ref class.
+	     a.m2();//Here m2 method is searched in current ref class A found then finds its method type i.e.
+	     //static and non static, if non static and see if its overriding if not execute from refer class.
+	}
+}	
+//case3
+class A33{
+	static void m1() {
+		System.out.println("A m1");
+	}
+	void m2() {
+		System.out.println("A m2");
+		this.m1();//here in m1() method compiler always place the this keyword so by using the this keyword
+		//we are calling the method from current class and here m1 is static so it will execute from class A only
+	}
+}
+class B33 extends A33{
+	static void m1() {
+		System.out.println("B m1");
+	}
+	public static void Q44(String[] args) {
+		B33 b=new B33();
+	    b.m1();
+	    b.m2();
+	    A33 a=new B33();
+	    a.m1();
+	    a.m2();
+	}
+}
 /*
- Hello World
-I am first2
-I am first776
-I am Second3
-I am first776
-in non-static context the compiler first execute the method from subclass then if it is not
-overriding then it will go for superclass 
-*/ 
+ * output:
+B m1
+A m2
+A m1
+A m1
+A m2
+A m1
+ */
+//case4
+class A44{
+	void m1() {
+		System.out.println("A m1");
+	}
+	void m2() {
+		System.out.println("A m2");
+		this.m1();//here in m1() method compiler always place the this keyword so by using the this keyword
+		//we are calling the method from current class and here m1 is non static so it will execute from object class only
+	}
+}
+class B44 extends A44{
+	void m1() {
+		System.out.println("B m1");
+	}
+	public static void Q44(String[] args) {
+		B44 b=new B44();
+	    b.m1();
+	    b.m2();
+	    System.out.println();
+	    A44 a=new B44();
+	    a.m1();
+	    a.m2();
+	    System.out.println();
+	    A44 c=new A44();
+	    c.m1();
+	    c.m2();
+	}
+}
+/*
+* output:
+B m1
+A m2
+B m1
+
+B m1
+A m2
+B m1
+
+A m1
+A m2
+A m1
+*/
+//case5
+/*
+ * Here private method can not be inherited so it cannot be overridden so both method are 
+ * their own class method
+ * If Q44 method is not found in subclass then compiler will check it in superclass if not 
+ * available then it will throw error. i.e Q44 method not found
+ */
+class A55{
+	private void m1() {
+		System.out.println("A m1");
+	}
+	void m2() {
+		System.out.println("A m2");
+		this.m1();//here in m1() method compiler always place the this keyword so by using the this keyword
+		//we are calling the method from current class and here m1 is non static so it will execute from object class only
+	}
+}
+class B55 extends A55{
+	private void m1() {
+		System.out.println("B m1");
+	}
+	public static void Q44(String[] args) {
+		B55 b=new B55();
+	    b.m1();
+	    b.m2();
+	    System.out.println();
+	    A55 a=new B55();
+	    //a.m1();We cannot private method other class in subclass
+	    a.m2();
+	    System.out.println();
+	    A55 c=new A55();
+	    //c.m1();
+	    c.m2();
+	}
+}
+/*
+* output:
+B m1
+A m2
+A m1
+
+A m2
+A m1
+
+A m2
+A m1
+*/
+//case6 |(Multilevel Inheritance)
+class P11 {
+    void m4(){
+       System.out.println("P11 m1 method");
+   }
+    void m2(){
+       
+       System.out.println("P11 m2 method");
+       m4();//this.m4();
+   }
+} 
+class P22 extends P11{
+   void m1(){
+       System.out.println("P22 m1 method");
+   }
+   void m3(){
+       System.out.println("P22 m3 method");
+       m4();//this.m4();
+       super.m2();
+   }
+} 
+
+class P33 extends P22{
+   void m2(){
+       System.out.println("P33 m2 method");
+       m4();
+   }
+}
+
+class P44 extends P33{
+   void m4(){
+       System.out.println("P44 m4 method");
+       
+   }
+   void m1(){
+       System.out.println("P44 m1 method");
+       
+   }
+   void m2(){
+       System.out.println("P44 m2 method");
+       
+   }
+   
+  
+	public static void Q44(String[] args) {
+		System.out.println("Hello World");
+		
+		P44 a2=new P44();
+		a2.m1();
+		a2.m2();
+		System.out.println();
+		a2.m3();
+		a2.m4();
+		
+	}
+}
+/*
+ * Output:
+ * Hello World
+ * P44 m1 method
+ * 
+ * P44 m2 method
+ * 
+ * P22 m3 method
+ * P44 m4 method
+ * P11 m2 method
+ * P44 m4 method
+ * 
+ * P44 m4 method
+ */
