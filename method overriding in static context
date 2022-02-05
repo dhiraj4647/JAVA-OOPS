@@ -1,62 +1,71 @@
 package dhiraj;
 
-class Sample {
-    static void m1(){
-       System.out.println("I am first1");
-   }
-    static void m2(){
-       
-       System.out.println("I am Second3");
-       m1();
-   }
+//case7:(Multilevel Inheritance)
+class Q11 {
+  static void m1(){
+     System.out.println("Q11 m1 method");
+ }
+  static void m2(){
+     
+     System.out.println("Q11 m2 method");
+     m1();
+ }
 } 
-class Test extends Sample{
-   static void m1(){
-       System.out.println("I am first776");
-   }
-   static void m3(){
-       System.out.println("I am first2");
-       m1();
-       Sample.m2();
-   }
+class Q22 extends Q11{
+ static void m1(){
+     System.out.println("Q22 m1 method");
+ }
+ void m3(){
+     System.out.println("Q22 m3 method");
+     m1();//this.m1();
+     super.m2();
+ }
 } 
 
-class Example extends Test{
-   static void m2(){
-       System.out.println("I am first776");
-       
-   }
+class Q33 extends Q22{
+	static void m2(){
+	       System.out.println("Q33 m2 method");
+	}
 }
 
-public class Main extends Example
+public class Q44 extends Q33
 {
-   static void m4(){
-       System.out.println("I am first776");
-       
-   }
-   static void m1(){
-       System.out.println("I am first7766666");
-       
-   }
-   static void m2(){
-       System.out.println("I am first776");
-       
-   }
-   
-  
+	   static void m4(){
+	       System.out.println("Q44 m4 method");
+	       
+	   }
+	   static void m1(){
+	       System.out.println("Q44 m1 method");
+	       
+	   }
+	   static void m2(){
+	       System.out.println("Q44 m2 method");
+	       
+	   }
+ 
+
 	public static void main(String[] args) {
 		System.out.println("Hello World");
 		
-		Main a2=new Main();
-	    a2.m3();
+		Q44 a2=new Q44();
+		a2.m1();
+		a2.m2();
+		System.out.println();
+		a2.m3();
+		a2.m4();
 		
 	}
 }
 /*
-
-Hello World
-I am first2
-I am first776
-I am Second3
-I am first1
+* Output:
+*  Q44 m1 method
+*  
+*  Q44 m2 method
+*  
+*  Q22 m3 method
+*  Q22 m1 method
+*  Q11 m2 method
+*  Q11 m1 method
+*  
+*  Q44 m4 method
 */
