@@ -93,6 +93,7 @@ thus it cannot run at run time.
 6) We cannot declare abstract method as final because it leads to C.E because final method
 cannot be override.
 7) We cannot declare abstract method as private because it leads to CE because it cannot be 
+inherited means we cant override this method.
 8) We can declare concrete class as abstract class this help to access non static members
 only via subclass object.
 */
