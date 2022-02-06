@@ -13,7 +13,10 @@ package oops;
  *    -If method is static method it directly execute from from referenced variable class.
  *    -If method is non static method it executes from Current object class. 
  * 4)Static method called as method hiding because it always executes from current refernecd variable class but Non static method always executes from current object class if it overrides.
- *        
+ *==> Rules of Overriding method:
+ *1)return type should be matched in both the methods.
+ *2)If superclass method is static then subclass method should declare as static. and if superclass is final then we cant override the method but if superclass method is not final then we can declare 
+ *the subclass method as final. 
  */
 class A{
 	static void m1() {
